@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title th:text="${post.ptitle}">帖子标题</title>
+
+    <script th:src="@{../js/jquery/2.0.0/jquery.min.js}" src="js/jquery/2.0.0/jquery.min.js"></script>
+    <link th:href="@{../css/bootstrap/3.3.6/bootstrap.min.css}" href="css/bootstrap/3.3.6/bootstrap.min.css"
+          rel="stylesheet"/>
+    <script th:src="@{../js/bootstrap/3.3.6/bootstrap.min.js}" src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{../js/private.js}"></script>
+    <link th:href="@{../css/tx.css}" rel="stylesheet"/>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script type="text/javascript" th:src="@{../js/canvas.js}"></script>
+
+
+<div class="container">
+    <div th:replace="head::header"></div>
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-heading" th:text="${post.ptitle}" style="font-size: 18px;font-weight: bolder">帖子标题
+                </div>
+                <div class="panel-body" th:utext="${post.pbody}">
+                    帖子内容<br/>
+                    帖子内容<br/>
+                    帖子内容<br/>
+
+                    帖子内容<br/>
+                </div>
+                <div class="panel-footer" style="height: 40px;">
+                    <div class="col-xs-2">
+                        <span class="text-info" th:text="|发帖用户:${post.user.uname}|">发帖用户:xxx</span>
+                    </div>
+                    <div class="col-xs-6">
+                        <span class="text-primary"
+                              th:text="|发帖时间:${#dates.format(post.psendtime,'yyyy-MM-dd HH:mm:ss')}|">发帖时间:2019-2-5-08:00:00</span>
+                    </div>
+                    <div class="col-xs-2">
+                        <span class="badge" th:text="|回复数:${post.replyCount}|">回复数:111</span>
+                    </div>
+                    <div class="col-xs-1">
+                        <button type="button" th:if="${session.user!=null}" class="btn btn-primary btn-xs"
+                                data-toggle="modal" data-target="#myModal">
+                            回复
+                        </button>
+                    </div>
+                    <div class="col-xs-1"
+                         th:if="${session.user!=null}?(${session.user.uid == post.user.uid}?true:${session.user.level==0}):false">
+                        <a th:href="|/delete/${post.pid}|">
+                            <button type="button" class="btn btn-primary btn-xs">删除</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" th:each="r,status:${page.modelList}">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body" th:utext="${r.replymessage}">
+                    回复
+                </div>
+                <div class="panel-footer" style="height: 40px;">
+                    <div class="col-xs-2">
+                        <span class="text-info" th:text="|回复用户:${r.user.uname}|">用户:xxx</span>
+                    </div>
+                    <div class="col-xs-6">
+                        <span class="text-primary" th:text="|回复时间:${#dates.format(r.replytime,'yyyy-MM-dd HH:mm:ss')}|">回复时间:2019-2-5-08:00:00</span>
+                    </div>
+                    <div class="col-xs-3">
+                        <span class="text-info"
+                              th:text="|${status.count+(page.showCount*((page.currentPage)-1))}楼|">1楼</span>
+                    </div>
+                    <div class="col-xs-1"
+                         th:if="${session.user!=null}?${session.user.level==0}:false">
+                        <a th:href="|/deleteReply/${r.rid}|">
+                            <button type="button" class="btn btn-primary btn-xs" id="deleteReply">删除</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="col-xs-12">
+            <nav>
+                <ul class="pager">
+                    <li class="previous" th:if="${page.currentPage!=1}"><a th:href="|?page=${page.currentPage-1}|"><span
+                            aria-hidden="true">&larr;</span> 上一页</a></li>
+                    <li class="text-primary" th:text="|当前第${page.currentPage}页，共${page.pageTotal}页|">当前第1页，共4页</li>
+                    <li class="next" th:if="${(page.currentPage!=page.pageTotal)and(page.pageTotal!=0)}"><a
+                            th:href="|?page=${page.currentPage+1}|">下一页<span aria-hidden="true">&rarr;</span></a></li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">回帖</h4>
+            </div>
+            <input type="hidden" id="pid" th:value="${post.pid}"/>
+            <div class="modal-body">
+                <textarea class="form-control" id="replyMessage" style="height: 100px"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                <button class="btn btn-primary" type="button" id="sendReply">回复</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+</body>
+</html>

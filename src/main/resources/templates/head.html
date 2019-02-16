@@ -1,0 +1,167 @@
+
+<header th:fragment="header" xmlns:th="http://www.thymeleaf.org">
+
+
+
+    <div class="modal fade" id="sendModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span
+                            class="sr-only">Close</span></button>
+                    <h4 class="modal-title">发帖</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" placeholder="帖子标题" name="" id="sendPostTitle" value=""/>
+                    <p></p>
+                    <textarea style="height: 100px;" class="form-control" placeholder="帖子内容" id="sendPostBody"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                    <button class="btn btn-primary" type="button" id="sendPostButton">发送</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span
+                            class="sr-only">Close</span></button>
+                    <h4 class="modal-title">登录</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="input-group input-group">
+                        <span class="input-group-addon" id="basic-addon1">用户</span>
+                        <input type="text" class="form-control" id="loginUname" name="uname" placeholder="用户名"
+                               aria-describedby="basic-addon1"/>
+                    </div>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon" id="basic-addon1">密码</span>
+                        <input type="password" class="form-control" id="loginUpwd" name="upwd" placeholder="密码"
+                               aria-describedby="basic-addon1"/>
+                    </div>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon" id="basic-addon1">验证</span>
+                        <input type="text" class="form-control" id="loginYzm" name="yzm" placeholder="验证码"
+                               aria-describedby="basic-addon1"/>
+                    </div>
+
+
+                    <div class="input-group input-group ">
+                        <div class="row">
+                            <p></p>
+                            <div class="col-xs-9"></div>
+                            <div class="col-xs-3">
+                                <img src="/yzm.do" class="yzmImg"/>
+                            </div>
+                            <div class="col-xs-12">
+                                <span class="text-center switchCode"><a href="#">看不清，点击切换</a></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                    <button class="btn btn-primary" type="button" id="loginButton">登录</button>
+                </div>
+            </div><!-- /.modal-content -->
+
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span
+                            class="sr-only">Close</span></button>
+                    <h4 class="modal-title">注册</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="input-group input-group">
+                        <span class="input-group-addon" id="basic-addon1">用户昵称</span>
+                        <input type="text" class="form-control" id="registerUname"  placeholder="用户名"
+                               aria-describedby="basic-addon1"/>
+                        <span class="input-group-addon"></span>
+                    </div>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon" id="basic-addon1">用户密码</span>
+                        <input type="password" class="form-control" id="registerUpwd"  placeholder="密码"
+                               aria-describedby="basic-addon1"/>
+                        <span class="input-group-addon"></span>
+                    </div>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon" id="basic-addon1">确认密码</span>
+                        <input type="password" class="form-control" id="registerconfirmUpwd"  placeholder="确认密码"
+                               aria-describedby="basic-addon1"/>
+                        <span class="input-group-addon"></span>
+                    </div>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon" id="basic-addon1">邀请代码</span>
+                        <input type="text" class="form-control" id="inviteCode"  placeholder="邀请代码"
+                               aria-describedby="basic-addon1"/>
+                        <span class="input-group-addon"></span>
+                    </div>
+
+                    <div class="input-group input-group">
+                        <span class="input-group-addon" id="basic-addon1">验证代码</span>
+                        <input type="text" class="form-control" id="registerYzm"  placeholder="验证码"
+                               aria-describedby="basic-addon1"/>
+                        <span class="input-group-addon"></span>
+                    </div>
+
+
+                    <div class="input-group input-group ">
+                        <div class="row">
+                            <p></p>
+                            <div class="col-xs-9"></div>
+                            <div class="col-xs-3">
+                                <img src="/yzm.do" class="yzmImg"/>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <span class="text-center switchCode"><a href="#">看不清，点击切换</a></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                    <button class="btn btn-primary" id="registerButton" type="button">注册</button>
+                </div>
+
+            </div><!-- /.modal-content -->
+
+        </div><!-- /.modal-dialog -->
+    </div>
+    <div class="row">
+
+        <div class="col-xs-2">
+            <h5 class="text-success"><a href="/">匿名论坛</a></h5>
+        </div>
+        <div class="col-xs-3 pull-right">
+            <div th:if="${session.user == null}">
+                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#loginModal">登录</button>
+                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#registerModal">注册</button>
+            </div>
+            <div th:if="${session.user != null}">
+                <button class="btn btn-link" data-toggle="modal" data-target="#sendModal">发帖</button>
+                <button class="btn btn-link" th:text="|欢迎你，${session.user.uname}|"></button>
+                <button class="btn btn-link" id="logouot">退出</button>
+                <a href="/host.do" th:if="${session.user.level == 0}">
+                    <button class="btn btn-link">后台</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zzx.mapper.PostMapper">
+
+    <insert id="save" parameterType="Post">
+        INSERT INTO post
+        VALUES (null,#{ptitle},#{pbody},#{psendtime},#{lastreplytime},#{user.uid})
+    </insert>
+
+    <resultMap type="Post" id="PostAndUser">
+        <id property="pid" column="pid"/>
+        <result property="ptitle" column="ptitle"/>
+        <result property="pbody" column="pbody"/>
+        <result property="psendtime" column="psendtime"/>
+        <result property="lastreplytime" column="lastreplytime"/>
+        <result property="user.uid" column="uid"/>
+        <result property="user.uname" column="uname"/>
+    </resultMap>
+
+
+    <select id="findAllPost" resultMap="PostAndUser">
+        SELECT p.pid,ptitle,pbody,psendtime,lastreplytime,u.uid,u.uname
+        FROM post p LEFT JOIN user u on p.uid = u.uid
+        ORDER BY lastreplytime DESC
+    </select>
+
+
+    <select id="findPostById" resultMap="PostAndUser" parameterType="Long">
+        SELECT pid,ptitle,pbody,psendtime,u.uid,u.uname
+        FROM post p LEFT JOIN user u on p.uid = u.uid
+        WHERE pid=#{value}
+    </select>
+
+    <update id="updatePostLastReplyTime" parameterType="Post">
+        UPDATE post
+        SET lastreplytime =#{lastreplytime}
+        WHERE pid = #{pid}
+    </update>
+
+    <delete id="deletePost" parameterType="Long">
+        DELETE FROM post
+        WHERE pid = #{value}
+    </delete>
+
+    <parameterMap id="StartPageAndshowPage" type="Map">
+        <parameter property="startPage" /><!--开始页码 -->
+        <parameter property="showPage" /><!-- 显示条数 -->
+    </parameterMap>
+
+    <select id="findPostByPage" parameterMap="StartPageAndshowPage" resultMap="PostAndUser">
+        SELECT p.pid,ptitle,pbody,psendtime,lastreplytime,u.uid,u.uname
+        FROM post p LEFT JOIN user u on p.uid = u.uid
+        ORDER BY lastreplytime DESC
+        LIMIT #{startPage},#{showPage}
+    </select>
+
+    <select id="getPostCount" resultType="Integer" >
+        SELECT COUNT(1)
+        FROM post
+    </select>
+
+</mapper>
