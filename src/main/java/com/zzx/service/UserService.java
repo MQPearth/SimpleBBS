@@ -10,6 +10,7 @@ public interface UserService {
 
     /**
      * 注册
+     *
      * @param user
      * @param invitecode
      * @throws MessageException
@@ -18,6 +19,7 @@ public interface UserService {
 
     /**
      * 登录
+     *
      * @param user
      * @return
      */
@@ -32,12 +34,14 @@ public interface UserService {
 
     /**
      * 禁言用户
+     *
      * @param user
      */
     void banUser(User user);
 
     /**
      * 禁言用户
+     *
      * @param user
      */
     void unbanUser(User user);
@@ -46,4 +50,10 @@ public interface UserService {
      * uid查询用户
      */
     User findUserByUid(Integer uid);
+
+
+    /**
+     * 更改用户密码
+     */
+    void updatePassword(String uname,String oldPwd, String newPwd) throws MessageException;
 }

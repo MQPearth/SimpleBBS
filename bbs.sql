@@ -62,3 +62,20 @@ CREATE TABLE `user` (
   PRIMARY KEY (`uid`),
   UNIQUE KEY `unique` (`uname`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for fileupload
+-- ----------------------------
+
+DROP TABLE IF EXISTS `fileupload`;
+
+CREATE TABLE `fileupload` (
+  `fileId` int(11) NOT NULL AUTO_INCREMENT COMMENT '文件唯一标识',
+  `fileName` varchar(30) NOT NULL COMMENT '文件名',
+  `filePath` varchar(100) NOT NULL COMMENT '文件路径',
+  `fileSize` bigint(20) NOT NULL COMMENT '文件大小',
+  `uploadTime` datetime NOT NULL COMMENT '上传时间',
+  `state` int(11) NOT NULL COMMENT '文件状态',
+  `uid` int(11) NOT NULL COMMENT '用户id',
+  PRIMARY KEY (`fileId`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;

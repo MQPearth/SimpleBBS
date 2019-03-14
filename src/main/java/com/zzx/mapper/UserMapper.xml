@@ -52,4 +52,10 @@
         WHERE uid = ${value}
     </select>
 
+    <update id="updateUserPwd" parameterType="User" >
+        UPDATE user
+        SET upwd = #{upwd}
+        WHERE uname = #{uname}
+    </update>
+
 </mapper>

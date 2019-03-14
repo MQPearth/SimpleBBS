@@ -1,4 +1,4 @@
-package com.zzx.web.controller;
+package com.zzx.controller;
 
 
 import com.zzx.model.Post;

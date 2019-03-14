@@ -1,6 +1,4 @@
-
 <header th:fragment="header" xmlns:th="http://www.thymeleaf.org">
-
 
 
     <div class="modal fade" id="sendModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -14,7 +12,8 @@
                 <div class="modal-body">
                     <input type="text" class="form-control" placeholder="帖子标题" name="" id="sendPostTitle" value=""/>
                     <p></p>
-                    <textarea style="height: 100px;" class="form-control" placeholder="帖子内容" id="sendPostBody"></textarea>
+                    <textarea style="height: 100px;" class="form-control" placeholder="帖子内容"
+                              id="sendPostBody"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
@@ -89,32 +88,32 @@
 
                     <div class="input-group input-group">
                         <span class="input-group-addon" id="basic-addon1">用户昵称</span>
-                        <input type="text" class="form-control" id="registerUname"  placeholder="用户名"
+                        <input type="text" class="form-control" id="registerUname" placeholder="用户名"
                                aria-describedby="basic-addon1"/>
                         <span class="input-group-addon"></span>
                     </div>
                     <div class="input-group input-group">
                         <span class="input-group-addon" id="basic-addon1">用户密码</span>
-                        <input type="password" class="form-control" id="registerUpwd"  placeholder="密码"
+                        <input type="password" class="form-control" id="registerUpwd" placeholder="密码"
                                aria-describedby="basic-addon1"/>
                         <span class="input-group-addon"></span>
                     </div>
                     <div class="input-group input-group">
                         <span class="input-group-addon" id="basic-addon1">确认密码</span>
-                        <input type="password" class="form-control" id="registerconfirmUpwd"  placeholder="确认密码"
+                        <input type="password" class="form-control" id="registerconfirmUpwd" placeholder="确认密码"
                                aria-describedby="basic-addon1"/>
                         <span class="input-group-addon"></span>
                     </div>
                     <div class="input-group input-group">
                         <span class="input-group-addon" id="basic-addon1">邀请代码</span>
-                        <input type="text" class="form-control" id="inviteCode"  placeholder="邀请代码"
+                        <input type="text" class="form-control" id="inviteCode" placeholder="邀请代码"
                                aria-describedby="basic-addon1"/>
                         <span class="input-group-addon"></span>
                     </div>
 
                     <div class="input-group input-group">
                         <span class="input-group-addon" id="basic-addon1">验证代码</span>
-                        <input type="text" class="form-control" id="registerYzm"  placeholder="验证码"
+                        <input type="text" class="form-control" id="registerYzm" placeholder="验证码"
                                aria-describedby="basic-addon1"/>
                         <span class="input-group-addon"></span>
                     </div>
@@ -149,19 +148,36 @@
         <div class="col-xs-2">
             <h5 class="text-success"><a href="/">匿名论坛</a></h5>
         </div>
-        <div class="col-xs-3 pull-right">
-            <div th:if="${session.user == null}">
+
+        <div th:if="${session.user == null}">
+            <div class="col-xs-7"></div>
+            <div class="col-xs-1">
                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#loginModal">登录</button>
+            </div>
+            <div class="col-xs-1">
                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#registerModal">注册</button>
             </div>
-            <div th:if="${session.user != null}">
-                <button class="btn btn-link" data-toggle="modal" data-target="#sendModal">发帖</button>
-                <button class="btn btn-link" th:text="|欢迎你，${session.user.uname}|"></button>
-                <button class="btn btn-link" id="logouot">退出</button>
+        </div>
+        <div th:if="${session.user != null}">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-1">
                 <a href="/host.do" th:if="${session.user.level == 0}">
                     <button class="btn btn-link">后台</button>
                 </a>
             </div>
+            <div class="col-xs-1">
+                <button class="btn btn-link" id="netdisk">网盘</button>
+            </div>
+            <div class="col-xs-1">
+                <button class="btn btn-link" data-toggle="modal" data-target="#sendModal">发帖</button>
+            </div>
+            <div class="col-xs-2">
+                <button class="btn btn-link" id="person" th:text="|[${session.user.uname}]个人管理|"></button>
+            </div>
+            <div class="col-xs-1">
+                <button class="btn btn-link" id="logouot">退出</button>
+            </div>
         </div>
+
     </div>
 </header>

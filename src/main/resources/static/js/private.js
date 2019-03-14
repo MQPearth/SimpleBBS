@@ -21,22 +21,13 @@ $(function ()
 {
     $("#loginButton").click(function ()
     {
-        var uname = $("#loginUname").val();
-        var upwd = $("#loginUpwd").val();
-        var yzm = $("#loginYzm").val();
+        login();
+    });
 
-        if (uname == "" || upwd == "" || yzm == "")
-            return;
-        else
-        {
-            var data = {"uname": uname, "upwd": upwd, "yzm": yzm};
-            $.post("/login.do", data, function (data)
-            {
-                alert(data);
-                if (data == "登录成功")
-                    location.reload();
-            });
-        }
+    $("#loginYzm").keyup(function (event)
+    {
+        if (event.which == 13)
+            login();
     });
 
     $("#registerButton").click(function ()
@@ -115,6 +106,18 @@ $(function ()
                 location.reload()
         });
     });
+
+    $("#netdisk").click(function ()
+    {
+        window.location.href = '/netdisk.do';
+    });
+
+    $("#person").click(function ()
+    {
+        window.location.href = '/person.do';
+    });
+
+
     $("#sendPostButton").click(function ()
     {
         var ptitle = $("#sendPostTitle").val();
@@ -169,10 +172,28 @@ $(function ()
         }, "json");
     });
 
+    $("#updatePwd").click(function ()
+    {
+        var personNewPwd = $("#personNewPwd").val();
+        var personConfirmPwd = $("#personConfirmPwd").val();
+        if (personNewPwd.length > 6 && personNewPwd.length <= 16)
+            if (personNewPwd == personConfirmPwd)
+                $("#updateForm").submit();
+            else
+            {
+                alert("两次输入的密码不相符");
+                return false;
+            }
+        else
+        {
+            alert("新密码长度长度(6,16]")
+            return false;
+        }
 
-
+    });
 
 });
+
 function banUser(uid)
 {
     $.get("/ban/" + uid, function (data)
@@ -192,4 +213,30 @@ function unbanUser(uid)
             location.reload();
     });
 }
+
+function login()
+{
+    var uname = $("#loginUname").val();
+    var upwd = $("#loginUpwd").val();
+    var yzm = $("#loginYzm").val();
+
+    if (uname == "" || upwd == "" || yzm == "")
+        return;
+    else
+    {
+        var data = {"uname": uname, "upwd": upwd, "yzm": yzm};
+        $.post("/login.do", data, function (data)
+        {
+            alert(data);
+            if (data == "登录成功")
+                location.reload();
+            else
+            {
+                $(".yzmImg").attr("src", "/yzm.do?c=" + new Date().getMilliseconds());
+                $("#loginYzm").val("");
+            }
+        });
+    }
+}
+
 /*]]>*/

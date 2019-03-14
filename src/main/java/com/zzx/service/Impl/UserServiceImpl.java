@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
+@Transactional
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -24,10 +24,10 @@ public class UserServiceImpl implements UserService {
     private InvitecodeMapper invitecodeMapper;
 
 
-    @Transactional
     @Override
     public void register(User user, Invitecode invitecode) throws MessageException {
         invitecode = invitecodeMapper.findinvitecodeByicode(invitecode);
+        //以下代码不符合规范，应该写在controller层，不过我懒，不想改了
         if (null != invitecode) {
             if (invitecode.getIstate() == 1)
                 throw new MessageException("邀请码已使用");
@@ -67,10 +67,24 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Override
     public User findUserByUid(Integer uid) {
         return userMapper.findUserByUid(uid);
+    }
+
+    @Override
+    public void updatePassword(String uname, String oldPwd, String newPwd) throws MessageException {
+
+        User user = new User();
+        user.setUname(uname);
+        user.setUpwd(oldPwd);
+        User findUser = userMapper.findUserByUnameAndUpwd(user);
+
+        if (null == findUser)
+            throw new MessageException("原密码错误");
+
+        user.setUpwd(newPwd);
+        userMapper.updateUserPwd(user);
     }
 
 

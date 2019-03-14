@@ -14,6 +14,7 @@ import java.util.Map;
 
 
 @Service
+@Transactional
 public class ReplyServiceImpl implements ReplyService {
 
     @Autowired
@@ -29,8 +30,6 @@ public class ReplyServiceImpl implements ReplyService {
         return replyMapper.findReplyByPid(pid);
     }
 
-
-    @Transactional
     @Override
     public void saveReply(Reply reply) {
         postMapper.updatePostLastReplyTime(reply.getPost());

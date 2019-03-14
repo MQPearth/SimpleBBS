@@ -10,7 +10,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.9.RELEASE</version>
+        <version>2.0.1.RELEASE</version>
     </parent>
     <dependencies>
         <dependency>
@@ -28,9 +28,6 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
@@ -39,29 +36,30 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.1.1</version>
+            <version>1.3.2</version>
         </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional> <!-- 这个需要为 true 热部署才有效 -->
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.13</version>
         </dependency>
 
 
 
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-devtools</artifactId>-->
+            <!--<optional>true</optional> &lt;!&ndash; 这个需要为 true 热部署才有效 &ndash;&gt;-->
+        <!--</dependency>-->
     </dependencies>
 
     <build>
         <plugins>
-
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -80,7 +78,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.zzx.App</mainClass>
+                    <mainClass>com.zzx.Application</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -89,7 +87,6 @@
                         </goals>
                     </execution>
                 </executions>
-
             </plugin>
         </plugins>
 
@@ -108,9 +105,6 @@
                 </includes>
             </resource>
         </resources>
-
-
-
     </build>
 
 </project>

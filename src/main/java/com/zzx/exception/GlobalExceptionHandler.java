@@ -9,7 +9,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public String exceptionHander(){
-        return "404";
+        return "error";
     }
 }
 

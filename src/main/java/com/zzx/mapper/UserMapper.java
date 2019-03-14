@@ -44,4 +44,10 @@ public interface UserMapper {
      * uid查询用户
      */
     User findUserByUid(Integer uid);
+
+
+    /**
+     * 更改用户密码
+     */
+    void updateUserPwd(User user);
 }
