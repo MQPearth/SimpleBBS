@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zzx.mapper.FileMapper">
+
+    <resultMap id="FileAndUser" type="File" >
+        <id property="fileId" column="fileId"/>
+        <result property="fileName" column="fileName"/>
+        <result property="filePath" column="filePath"/>
+        <result property="fileSize" column="fileSize"/>
+        <result property="uploadTime" column="uploadTime"/>
+        <result property="state" column="state"/>
+        <result property="user.uid" column="uid"/>
+    </resultMap>
+    
+    <select id="findFileByUid" parameterType="Integer" resultType="File">
+        SELECT fileId,fileName,filePath,fileSize,uploadTime
+        FROM fileupload
+        WHERE uid = #{value} and state = 1
+    </select>
+    <select id="findFileById" parameterType="Integer" resultMap="FileAndUser">
+        SELECT fileId,fileName,filePath,fileSize,uploadTime,state,uid
+        FROM fileupload
+        WHERE fileId=#{value}
+    </select>
+    <update id="delete" parameterType="Integer">
+        UPDATE fileupload
+        SET state = 0
+        WHERE
+        fileId = #{value}
+    </update>
+
+    <insert id="saveFileInfo" parameterType="File">
+        INSERT INTO fileupload
+        VALUES(null,#{fileName},#{filePath},#{fileSize},#{uploadTime},#{state},#{user.uid})
+    </insert>
+
+
+    <select id="findFileByPath" parameterType="String" resultMap="FileAndUser">
+        SELECT fileId,fileName,filePath,fileSize,uploadTime,state,uid
+        FROM fileupload
+        WHERE filePath=#{value}
+    </select>
+
+    <select id="getAvailableSizeByUid" resultType="Long" parameterType="Integer">
+        SELECT SUM(fileSize)
+        FROM fileupload
+        WHERE uid = #{value} AND state = 1
+    </select>
+
+
+</mapper>

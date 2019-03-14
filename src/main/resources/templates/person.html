@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人管理</title>
+    <script th:src="@{js/jquery/2.0.0/jquery.min.js}" src="js/jquery/2.0.0/jquery.min.js"></script>
+    <link th:href="@{../css/bootstrap/3.3.6/bootstrap.min.css}" href="css/bootstrap/3.3.6/bootstrap.min.css"
+          rel="stylesheet"/>
+    <script th:src="@{js/bootstrap/3.3.6/bootstrap.min.js}" src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{js/private.js}"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <div th:replace="head::header"></div>
+
+    <div class="row">
+
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                       aria-expanded="false"
+                       aria-controls="collapseOne">
+                        密码管理
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <h4 class="text-success">更改密码</h4>
+                        </div>
+                    </div>
+                    <div style="width:500px;margin: 0 auto;">
+                        <form action="/updatePassword.do" method="post" id="updateForm">
+                            <table style="text-align: right;font-size: 17px"
+                                   class="table table-striped table-bordered table-hover table-condensed">
+                                <tr>
+                                    <td>当前密码</td>
+                                    <td><input type="password" class="form-control" name="oldPwd" ></td>
+                                </tr>
+                                <tr>
+                                    <td>新密码</td>
+                                    <td><input type="password" class="form-control" name="newPwd" id="personNewPwd"></td>
+                                </tr>
+                                <tr>
+                                    <td>确认密码</td>
+                                    <td><input type="password" class="form-control" id="personConfirmPwd"></td>
+                                </tr>
+                            </table>
+                            <div align="center">
+                                <input type="submit" class="btn btn-danger" value="更改" id="updatePwd"/>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>网盘</title>
+
+    <script th:src="@{js/jquery/2.0.0/jquery.min.js}" src="js/jquery/2.0.0/jquery.min.js"></script>
+    <link th:href="@{../css/bootstrap/3.3.6/bootstrap.min.css}" href="css/bootstrap/3.3.6/bootstrap.min.css"
+          rel="stylesheet"/>
+    <script th:src="@{js/bootstrap/3.3.6/bootstrap.min.js}" src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{js/private.js}"></script>
+</head>
+<body>
+<div class="container">
+
+    <div th:replace="head::header"></div>
+
+    <div class="row">
+
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                       aria-expanded="false"
+                       aria-controls="collapseOne" th:text="|网盘  剩余空间 ${#numbers.formatDecimal(size, 1, 11)}Gb|">
+                        网盘
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <h4 class="text-success">文件列表</h4>
+                        </div>
+                        <div class="col-xs-2 pull-right">
+                            <button class="btn btn-primary " id="uploadFile" data-toggle="modal"
+                                    data-target="#uploadModal">上传文件
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <table class="table table-striped table-bordered table-hover table-condensed">
+                        <thead>
+                        <th>文件名</th>
+                        <th>文件大小</th>
+                        <th>上传时间</th>
+                        <th></th>
+                        </thead>
+                        <tbody id="fileList">
+                            <tr th:each="file:${fileList}">
+                                <td th:text="${file.fileName}">download.zip</td>
+                                <td th:text="|${#numbers.formatDecimal(file.fileSize/1048576.0, 1, 8)} MB|">11.23MB</td>
+                                <td th:text="${#dates.format(file.uploadTime,'yyyy-MM-dd HH:mm:ss')}">2019-03-13 08:00:00</td>
+                                <td align="center"><a th:href="${file.filePath}">下载</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a th:href="|/deletefile/${file.fileId}|">删除</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">上传文件</h4>
+            </div>
+            <div class="modal-body">
+
+                <form enctype="multipart/form-data" method="post" action="/upload.do">
+                    <div align="center">
+                        <span class="glyphicon glyphicon-upload" style="font-size:35px"></span>
+                        <hr/>
+                        <span>
+                            <div style="border: solid 4px #90BAFE;background-color: #90BAFE">
+                                <input value="选择文件" type="file" name="file"/>
+                            </div>
+                            <br />
+                            <button class="btn btn-default" type="submit" id="upload">上传</button>
+                        </span>
+
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+</body>
+</html>
