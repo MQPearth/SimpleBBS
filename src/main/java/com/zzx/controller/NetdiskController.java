@@ -141,7 +141,7 @@ public class NetdiskController {
             response.setHeader("Connection", "close");
             response.setHeader("Content-Type", "application/octet-stream");
             OutputStream os = response.getOutputStream();
-            java.io.File diskFile = new java.io.File(file.getFilePath());
+            java.io.File diskFile = new java.io.File(fileUploadProperteis.getUploadFolder()+"/"+file.getFilePath().split("/")[2]);
             FileInputStream fis = new FileInputStream(diskFile);
             byte[] buf = new byte[(int) diskFile.length()];
             fis.read(buf);
