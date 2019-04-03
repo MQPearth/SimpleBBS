@@ -13,8 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.net.URLEncoder;
 import java.util.Date;
 
 @Controller
@@ -24,7 +26,6 @@ public class NetdiskController {
     private FileService fileService;
     @Autowired
     private FileUploadProperteis fileUploadProperteis;
-
 
 
     /**
@@ -38,7 +39,7 @@ public class NetdiskController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             model.addAttribute("fileList", fileService.findFileByUid(user.getUid()));
-            model.addAttribute("size",fileService.getAvailableSizeByUid(user.getUid())*1.0/NetdiskConfig.GB_1);
+            model.addAttribute("size", fileService.getAvailableSizeByUid(user.getUid()) * 1.0 / NetdiskConfig.GB_1);
             return "netdisk";
         } else
             return "redirect:/";
@@ -73,15 +74,15 @@ public class NetdiskController {
      * @return
      */
     @PostMapping(value = "/upload.do")
-    public String upload(@RequestParam("file") MultipartFile file, HttpSession session,Model model) {
+    public String upload(MultipartFile file, HttpSession session, Model model) {
 
         User user = (User) session.getAttribute("user");
         if (user == null) {  //未登录
             return "redirect:/";
         }
 
-        if(file.getSize()>fileService.getAvailableSizeByUid(user.getUid())) {
-            model.addAttribute("message","你的剩余容量不足,充钱才能变得更强");
+        if (file.getSize() > fileService.getAvailableSizeByUid(user.getUid())) {
+            model.addAttribute("message", "你的剩余容量不足,充钱才能变得更强");
             return "error";
         }
         if (file.getSize() <= 0 || file.getSize() > NetdiskConfig.GB_1) //文件大小不符合范围
@@ -121,6 +122,32 @@ public class NetdiskController {
         } catch (IOException e) {
             e.printStackTrace();
             return "error";
+        }
+    }
+
+    @RequestMapping(value = "/download")
+    public void download(Integer fileId, HttpServletResponse response, HttpSession session) {
+
+        Object obj = session.getAttribute("user");
+        if (null == obj)
+            return;
+        User user = (User) obj;
+        try {
+            File file = fileService.findFileById(fileId);
+            if (file.getState() == 0 || file.getUser().getUid() != user.getUid())
+                return;
+            response.reset();
+            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(file.getFileName(), "UTF-8"));
+            response.setHeader("Connection", "close");
+            response.setHeader("Content-Type", "application/octet-stream");
+            OutputStream os = response.getOutputStream();
+            java.io.File diskFile = new java.io.File(file.getFilePath());
+            FileInputStream fis = new FileInputStream(diskFile);
+            byte[] buf = new byte[(int) diskFile.length()];
+            fis.read(buf);
+            os.write(buf);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

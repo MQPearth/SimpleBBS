@@ -53,7 +53,7 @@
                                 <td th:text="${file.fileName}">download.zip</td>
                                 <td th:text="|${#numbers.formatDecimal(file.fileSize/1048576.0, 1, 8)} MB|">11.23MB</td>
                                 <td th:text="${#dates.format(file.uploadTime,'yyyy-MM-dd HH:mm:ss')}">2019-03-13 08:00:00</td>
-                                <td align="center"><a th:href="${file.filePath}">下载</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a th:href="|/deletefile/${file.fileId}|">删除</a></td>
+                                <td align="center"><a th:href="|/download?fileId=${file.fileId}|">下载</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a th:href="|/deletefile/${file.fileId}|">删除</a></td>
                             </tr>
                         </tbody>
                     </table>

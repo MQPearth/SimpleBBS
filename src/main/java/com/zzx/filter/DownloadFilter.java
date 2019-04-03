@@ -42,25 +42,9 @@ public class DownloadFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
-        System.out.println("拦截");
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-
-        HttpSession session = request.getSession();
-
-        User user = (User) session.getAttribute("user");
-        if (user != null) {
-            String path = request.getRequestURI();
-            File fileInfo = fileService.findFileByPath(path);
-            if (user.getUid() == fileInfo.getUser().getUid() && fileInfo.getState() ==1)
-                filterChain.doFilter(servletRequest, servletResponse);
-            else
-                response.sendRedirect("/");
-        } else {
-            response.sendRedirect("/");
-        }
-
-
+        response.sendRedirect("/");
     }
 
     /**
