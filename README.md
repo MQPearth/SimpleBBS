@@ -2,7 +2,7 @@
 ### 简单在线论坛
 > SpringBoot 构建
 
-> Spring SpringMVC Mybatis Bootstrap JQuery thymeleaf 
+> SpringBoot Mybatis Bootstrap JQuery thymeleaf 
 
 
 > 数据库结构 bbs.sql
