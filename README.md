@@ -1,4 +1,4 @@
-## EasyBBS
+## SimpleBBS
 ### 简单在线论坛
 > SpringBoot 构建
 
@@ -22,7 +22,5 @@
 
 > 网盘：每个用户默认2G容量,通过user.netdisk.size配置 剩余容量显示
 
-
-git不会用
 
 ## 项目停止维护
