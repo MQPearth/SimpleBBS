@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zzx.mapper.UserMapper">
+
+    <insert id="save" parameterType="User">
+        INSERT INTO user
+        VALUES (null,#{uname},#{upwd},#{ustate},#{ucreatetime},#{level});
+    </insert>
+
+
+    <select id="findUserByUname" parameterType="User" resultType="User">
+
+        SELECT uid,uname,upwd,ustate,ucreatetime,level
+        FROM user
+        WHERE uname=#{uname}
+    </select>
+
+
+    <select id="findUserByUnameAndUpwd" resultType="User" parameterType="User">
+        SELECT uid,uname,upwd,ustate,ucreatetime,level
+        FROM user
+        WHERE uname=#{uname} and upwd=#{upwd}
+    </select>
+
+    <select id="findAllUser" resultType="User">
+        SELECT uid,uname,ustate,ucreatetime,level
+        FROM user
+    </select>
+
+    <update id="updateUser" parameterType="User">
+        UPDATE user
+        <set>
+            <if test="uname!=null">
+                uname = #{uname},
+            </if>
+            <if test="ustate!=null">
+                ustate = #{ustate},
+            </if>
+            <!-- <if test="level!=null">
+                level = #{level},
+            </if> -->
+        </set>
+        WHERE uid = #{uid}
+    </update>
+
+    <select id="findUserByUid" parameterType="Integer" resultType="User">
+        SELECT uid,uname,ustate,ucreatetime,level
+        FROM user
+        WHERE uid = ${value}
+    </select>
+
+    <update id="updateUserPwd" parameterType="User" >
+        UPDATE user
+        SET upwd = #{upwd}
+        WHERE uname = #{uname}
+    </update>
+
+</mapper>

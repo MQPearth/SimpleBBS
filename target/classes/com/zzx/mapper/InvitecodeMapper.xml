@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zzx.mapper.InvitecodeMapper">
+
+    <select id="findinvitecodeByicode" parameterType="Invitecode" resultType="Invitecode">
+        SELECT icode ,icreatetime,istate
+        FROM invitecode
+        WHERE icode=#{icode}
+    </select>
+
+
+    <update id="updateInvitecode" parameterType="Invitecode">
+        UPDATE invitecode
+        SET istate=#{istate},uid=#{user.uid}
+        WHERE icode=#{icode}
+    </update>
+
+    <resultMap id="InvitecodeAndUser" type="Invitecode">
+
+        <id property="icode" column="icode"/>
+        <result property="icreatetime" column="icreatetime"/>
+        <result property="istate" column="istate"/>
+        <result property="user.uid" column="uid"/>
+        <result property="user.uname" column="uname"/>
+    </resultMap>
+    
+    <select id="findAllInvitecode" resultMap="InvitecodeAndUser">
+        SELECT icode,icreatetime,istate,u.uid,u.uname
+        FROM invitecode i LEFT JOIN user u
+        ON i.uid=u.uid
+        ORDER BY istate DESC
+    </select>
+
+    <delete id="deleteInvitecode" parameterType="String">
+        DELETE FROM invitecode
+        WHERE icode = #{value}
+    </delete>
+
+    <insert id="saveInvitecode" parameterType="Invitecode">
+        INSERT INTO invitecode
+        VALUES (#{icode},#{icreatetime},#{istate},null)
+    </insert>
+
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zzx.mapper.ReplyMapper">
+
+    <select id="getReplyCountByPid" resultType="Long" parameterType="Long">
+        SELECT COUNT(1)
+        FROM reply
+        WHERE pid =#{value}
+    </select>
+
+
+    <resultMap type="Reply" id="ReplyAndUser">
+        <!-- 定义主键 ,非常重要。如果是多个字段,则定义多个id -->
+        <!-- property：主键在pojo中的属性名 -->
+        <!-- column：主键在数据库中的列名 -->
+        <id property="rid" column="rid"/>
+
+        <!-- 定义普通属性 -->
+
+        <result property="replymessage" column="replymessage"/>
+        <result property="replytime" column="replytime"/>
+        <result property="user.uid" column="uid"/>
+        <result property="user.uname" column="uname"/>
+
+    </resultMap>
+
+    <select id="findReplyByPid" resultMap="ReplyAndUser" parameterType="Long">
+        SELECT u.uid,u.uname,replymessage,replytime,rid
+        FROM reply r LEFT JOIN user u ON r.uid = u.uid
+        WHERE pid = #{value}
+    </select>
+
+
+    <insert id="saveReply" parameterType="Reply">
+        INSERT INTO reply
+        VALUES (#{post.pid},#{user.uid},#{replymessage},#{replytime},null)
+    </insert>
+
+
+    <delete id="deleteReply" parameterType="Long">
+        DELETE FROM reply
+        WHERE pid = #{value}
+    </delete>
+
+    <parameterMap id="PidStartPageShowPage" type="Map">
+        <parameter property="pid" />
+        <parameter property="startPage" /><!--开始页码 -->
+        <parameter property="showPage" /><!-- 显示条数 -->
+    </parameterMap>
+
+    <select id="findReplyByPidAndPage" resultMap="ReplyAndUser" parameterMap="PidStartPageShowPage">
+        SELECT u.uid,u.uname,replymessage,replytime,rid
+        FROM reply r LEFT JOIN user u ON r.uid = u.uid
+        WHERE pid = #{pid}
+        LIMIT #{startPage},#{showPage}
+    </select>
+    
+    <delete id="deleteReplyByRid" parameterType="Long">
+        DELETE FROM reply
+        WHERE rid = #{value}
+    </delete>
+
+</mapper>
