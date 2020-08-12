@@ -6,8 +6,12 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "user.netdisk")
 public class NetdiskConfig {
-    public static final long GB_1 = 1024 * 1024 * 1024;  //1Gb的字节数
+    /**
+     * 1Gb的字节数
+     */
+    public static final long GB_1 = 1024 * 1024 * 1024;
     private Long size;
+
     public Long getSize() {
         return size;
     }

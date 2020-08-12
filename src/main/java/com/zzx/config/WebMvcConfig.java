@@ -1,7 +1,6 @@
 package com.zzx.config;
 
 
-
 import com.zzx.filter.DownloadFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -28,23 +27,22 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private DownloadFilter downloadFilter;
 
 
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        File file = new File(fileUploadProperteis.getUploadFolder());
+        if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
+            if (!file.exists())
+                file.mkdirs();
+            registry.addResourceHandler(fileUploadProperteis.getStaticAccessPath())
+                    .addResourceLocations("file:" + fileUploadProperteis.getUploadFolder() + "/");
 
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		File file = new File(fileUploadProperteis.getUploadFolder());
-		if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
-			if (!file.exists())
-				file.mkdirs();
-			registry.addResourceHandler(fileUploadProperteis.getStaticAccessPath())
-					.addResourceLocations("file:" + fileUploadProperteis.getUploadFolder() + "/");
-
-		} else {
-			file = new File("/file");
-			if (!file.exists())
-				file.mkdirs();
-			registry.addResourceHandler(fileUploadProperteis.getStaticAccessPath())
-					.addResourceLocations("file:/file");
-		}
-	}
+        } else {
+            file = new File("/file");
+            if (!file.exists())
+                file.mkdirs();
+            registry.addResourceHandler(fileUploadProperteis.getStaticAccessPath())
+                    .addResourceLocations("file:/file");
+        }
+    }
 
 
     @Bean
@@ -59,7 +57,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         return registrationBean;
     }
-
 
 
 }

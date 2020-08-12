@@ -9,6 +9,7 @@ public interface InvitecodeMapper {
 
     /**
      * 根据邀请码id查询邀请码是否存在
+     *
      * @param invitecode
      * @return
      */
@@ -17,6 +18,7 @@ public interface InvitecodeMapper {
 
     /**
      * 更新邀请码状态
+     *
      * @param invitecode
      * @return 1 更新成功
      */
@@ -24,6 +26,7 @@ public interface InvitecodeMapper {
 
     /**
      * 查询所有邀请码
+     *
      * @return
      */
     List<Invitecode> findAllInvitecode();

@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(User user, Invitecode invitecode) throws MessageException {
         invitecode = invitecodeMapper.findinvitecodeByicode(invitecode);
-        //以下代码不符合规范，应该写在controller层，不过我懒，不想改了
         if (null != invitecode) {
             if (invitecode.getIstate() == 1)
                 throw new MessageException("邀请码已使用");

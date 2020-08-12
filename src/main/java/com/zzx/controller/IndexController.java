@@ -1,7 +1,6 @@
 package com.zzx.controller;
 
 
-
 import com.zzx.service.PostService;
 import com.zzx.service.UserService;
 
@@ -31,7 +30,7 @@ public class IndexController {
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(HttpSession session,Model model, @RequestParam(value = "page", required = false) Long page) {
+    public String index(HttpSession session, Model model, @RequestParam(value = "page", required = false) Long page) {
         Map<String, Long> map = new HashMap<>();
         map.put("startPage", page == null ? 0 : page - 1);
         model.addAttribute("page", postService.findPostByPage(map));

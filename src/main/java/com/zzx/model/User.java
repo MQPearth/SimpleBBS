@@ -9,6 +9,9 @@ public class User {
     private String upwd;
     private Integer ustate;
     private Date ucreatetime;
+    /**
+     * 0管理员 1普通用户
+     */
     private Integer level;
     private List<Post> postList;
 

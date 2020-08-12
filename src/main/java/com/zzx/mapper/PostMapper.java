@@ -10,6 +10,7 @@ public interface PostMapper {
 
     /**
      * 保存帖子
+     *
      * @param post
      * @return
      */
@@ -18,12 +19,14 @@ public interface PostMapper {
 
     /**
      * 查询所有帖子
+     *
      * @return
      */
     List<Post> findAllPost();
 
     /**
      * 根据帖子id查询帖子
+     *
      * @param pid
      * @return
      */
@@ -37,6 +40,7 @@ public interface PostMapper {
 
     /**
      * 根据帖子id 删除帖子
+     *
      * @param pid
      */
     void deletePost(Long pid);
@@ -44,14 +48,16 @@ public interface PostMapper {
 
     /**
      * 分页查询帖子
+     *
      * @param map
      * @return
      */
-    List<Post> findPostByPage(Map<String,Long> map);
+    List<Post> findPostByPage(Map<String, Long> map);
 
 
     /**
      * 查询帖子数量
+     *
      * @return
      */
     Integer getPostCount();

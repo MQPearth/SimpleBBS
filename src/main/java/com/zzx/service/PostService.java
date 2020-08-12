@@ -11,18 +11,21 @@ public interface PostService {
 
     /**
      * 保存帖子
+     *
      * @param post
      */
     void save(Post post);
 
     /**
      * 查询所有帖子
+     *
      * @return
      */
     List<Post> findAllPost();
 
     /**
      * 根据帖子id查询帖子
+     *
      * @param pid
      * @return
      */
@@ -31,6 +34,7 @@ public interface PostService {
 
     /**
      * 根据帖子id删除帖子
+     *
      * @param pid
      */
     void deletePost(Long pid);
@@ -38,8 +42,9 @@ public interface PostService {
 
     /**
      * 分页查询帖子
+     *
      * @param map
      * @return
      */
-    Page<Post> findPostByPage(Map<String,Long> map);
+    Page<Post> findPostByPage(Map<String, Long> map);
 }

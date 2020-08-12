@@ -26,15 +26,15 @@ public class HostController {
     private UserService userService;
 
     @RequestMapping(value = "/host.do")
-    public String host(Model model,HttpSession session){
+    public String host(Model model, HttpSession session) {
 
-        User user = (User) session.getAttribute("user");
+        User user = (User)session.getAttribute("user");
         if (null != user && user.getLevel() == 0) {
 
             //查询所有邀请码
-            model.addAttribute("inviteList",invitecodeService.findAllInvitecode());
+            model.addAttribute("inviteList", invitecodeService.findAllInvitecode());
             //查询所有用户
-            model.addAttribute("userList",userService.findAllUser());
+            model.addAttribute("userList", userService.findAllUser());
 
             return "invite";
         }
@@ -43,8 +43,8 @@ public class HostController {
 
     @RequestMapping(value = "/generateCode.do")
     @ResponseBody
-    public Invitecode generateCode(HttpSession session){
-        User user = (User) session.getAttribute("user");
+    public Invitecode generateCode(HttpSession session) {
+        User user = (User)session.getAttribute("user");
         if (null == user || user.getLevel() == 1)
             return null;
         Invitecode code = new Invitecode();
@@ -58,8 +58,8 @@ public class HostController {
     }
 
     @RequestMapping(value = "/deleteCode/{icode}")
-    public String deleteCode(@PathVariable String icode, HttpSession session){
-        User user = (User) session.getAttribute("user");
+    public String deleteCode(@PathVariable String icode, HttpSession session) {
+        User user = (User)session.getAttribute("user");
         if (null == user || user.getLevel() == 1)
             return "redirect:/";
 

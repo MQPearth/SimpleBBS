@@ -64,6 +64,11 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- user record
+-- ----------------------------
+INSERT INTO `bbs`.`user`(`uid`, `uname`, `upwd`, `ustate`, `ucreatetime`, `level`) VALUES (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 1, '2020-08-12 10:57:45', 0);
+
+-- ----------------------------
 -- Table structure for fileupload
 -- ----------------------------
 

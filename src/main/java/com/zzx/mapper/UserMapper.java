@@ -8,6 +8,7 @@ public interface UserMapper {
 
     /**
      * 保存用户
+     *
      * @param user
      * @return
      */
@@ -15,6 +16,7 @@ public interface UserMapper {
 
     /**
      * 根据用户名查询用户
+     *
      * @param user
      * @return
      */
@@ -23,6 +25,7 @@ public interface UserMapper {
 
     /**
      * 根据用户名和密码查询用户
+     *
      * @param user
      * @return
      */
@@ -30,12 +33,14 @@ public interface UserMapper {
 
     /**
      * 查询所有用户
+     *
      * @return
      */
     List<User> findAllUser();
 
     /**
      * 更新用户状态
+     *
      * @param user
      */
     void updateUser(User user);

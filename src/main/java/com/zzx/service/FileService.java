@@ -9,6 +9,7 @@ public interface FileService {
 
     /**
      * 查找该用户上传的所有文件
+     *
      * @param uid
      * @return
      */
@@ -16,6 +17,7 @@ public interface FileService {
 
     /**
      * 保存文件上传信息
+     *
      * @param file
      */
     void saveFileInfo(File file);
@@ -23,6 +25,7 @@ public interface FileService {
 
     /**
      * 根据id查询
+     *
      * @param fileId
      * @return
      */
@@ -30,12 +33,14 @@ public interface FileService {
 
     /**
      * 删除
+     *
      * @param fileId
      */
     void delete(Integer fileId);
 
     /**
      * 根据path查询
+     *
      * @param path
      * @return
      */
@@ -43,6 +48,7 @@ public interface FileService {
 
     /**
      * 获得该用户剩余容量
+     *
      * @param uid
      * @return
      */

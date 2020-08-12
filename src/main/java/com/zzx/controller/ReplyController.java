@@ -20,11 +20,11 @@ public class ReplyController {
     private ReplyService replyService;
 
 
-    @RequestMapping(value = "/deleteReply/{rid}",method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteReply/{rid}", method = RequestMethod.GET)
     @ResponseBody
-    public String deleteReply(@PathVariable Long rid, HttpSession session){
+    public String deleteReply(@PathVariable Long rid, HttpSession session) {
 
-        User user = (User) session.getAttribute("user");
+        User user = (User)session.getAttribute("user");
         if (null != user && user.getLevel() == 0) {
             replyService.deleteReplyRid(rid);
             return "删除成功";

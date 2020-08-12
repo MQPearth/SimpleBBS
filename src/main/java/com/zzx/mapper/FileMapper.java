@@ -8,6 +8,7 @@ public interface FileMapper {
 
     /**
      * 查找该用户上传的状态正常的文件
+     *
      * @param uid
      * @return
      */
@@ -16,6 +17,7 @@ public interface FileMapper {
 
     /**
      * 保存文件上传信息
+     *
      * @param file
      */
     void saveFileInfo(File file);
@@ -23,6 +25,7 @@ public interface FileMapper {
 
     /**
      * 根据id查询
+     *
      * @param fileId
      * @return
      */
@@ -30,6 +33,7 @@ public interface FileMapper {
 
     /**
      * 删除
+     *
      * @param fileId
      */
     void delete(Integer fileId);
@@ -37,6 +41,7 @@ public interface FileMapper {
 
     /**
      * 根据path查询
+     *
      * @param path
      * @return
      */
@@ -45,6 +50,7 @@ public interface FileMapper {
 
     /**
      * 获得该用户已使用容量
+     *
      * @param uid
      * @return
      */

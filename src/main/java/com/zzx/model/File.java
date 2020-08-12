@@ -3,12 +3,30 @@ package com.zzx.model;
 import java.util.Date;
 
 public class File {
-    private Integer fileId; //文件id
-    private String fileName;//文件名
-    private String filePath;//文件路径
-    private Long fileSize;//文件大小
-    private Date uploadTime;//上传时间
-    private Integer state;//状态
+    /**
+     * 文件id
+     */
+    private Integer fileId;
+    /**
+     * 文件名
+     */
+    private String fileName;
+    /**
+     * 文件路径
+     */
+    private String filePath;
+    /**
+     * 文件大小
+     */
+    private Long fileSize;
+    /**
+     * 上传时间
+     */
+    private Date uploadTime;
+    /**
+     * 状态
+     */
+    private Integer state;
     private User user;
 
     public Integer getFileId() {

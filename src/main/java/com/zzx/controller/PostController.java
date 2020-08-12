@@ -31,7 +31,7 @@ public class PostController {
     @RequestMapping(value = "/sendPost.do", method = RequestMethod.POST)
     @ResponseBody
     public String sendPost(HttpSession session, Post post) {
-        User user = (User) session.getAttribute("user");
+        User user = (User)session.getAttribute("user");
         if (null != user) {
             if (user.getUstate() == 0)
                 return "你已被禁言";
@@ -81,7 +81,7 @@ public class PostController {
     @ResponseBody
     public String reply(Reply reply, HttpSession session) {
 
-        User user = (User) session.getAttribute("user");
+        User user = (User)session.getAttribute("user");
         if (null != user) {
             if (user.getUstate() == 0)
                 return "你已被禁言";
@@ -102,7 +102,7 @@ public class PostController {
     @RequestMapping(value = "/delete/{pid}")
     public String deletePost(@PathVariable Long pid, HttpSession session) {
 
-        User user = (User) session.getAttribute("user");
+        User user = (User)session.getAttribute("user");
         Post post = postService.findPostByPid(pid);
         if ((null != user && user.getLevel() == 0) || user.getUid() == post.getUser().getUid()) {
             if (user.getUstate() != 0) //禁言状态不能删除帖子

@@ -7,6 +7,7 @@ import java.util.List;
 public interface InvitecodeService {
     /**
      * 查询所有邀请码
+     *
      * @return
      */
     List<Invitecode> findAllInvitecode();

@@ -36,7 +36,7 @@ public class NetdiskController {
     @RequestMapping(value = "/netdisk.do", method = RequestMethod.GET)
     public String netdisk(Model model, HttpSession session) {
 
-        User user = (User) session.getAttribute("user");
+        User user = (User)session.getAttribute("user");
         if (user != null) {
             model.addAttribute("fileList", fileService.findFileByUid(user.getUid()));
             model.addAttribute("size", fileService.getAvailableSizeByUid(user.getUid()) * 1.0 / NetdiskConfig.GB_1);
@@ -56,7 +56,7 @@ public class NetdiskController {
 
     @RequestMapping(value = "/deletefile/{fileId}", method = RequestMethod.GET)
     public String deleteFile(@PathVariable Integer fileId, HttpSession session) {
-        User user = (User) session.getAttribute("user");
+        User user = (User)session.getAttribute("user");
         com.zzx.model.File file = fileService.findFileById(fileId);
         if (user != null && user.getUid() == file.getUser().getUid()) {
             fileService.delete(fileId);
@@ -76,7 +76,7 @@ public class NetdiskController {
     @PostMapping(value = "/upload.do")
     public String upload(MultipartFile file, HttpSession session, Model model) {
 
-        User user = (User) session.getAttribute("user");
+        User user = (User)session.getAttribute("user");
         if (user == null) {  //未登录
             return "redirect:/";
         }
@@ -130,22 +130,22 @@ public class NetdiskController {
 
         Object obj = session.getAttribute("user");
         if (null == obj)
-        	response.sendRedirect("/");
-        User user = (User) obj;
+            response.sendRedirect("/");
+        User user = (User)obj;
         try {
             File file = fileService.findFileById(fileId);
             if (file.getState() == 0 || file.getUser().getUid() != user.getUid())
-            	response.sendRedirect("/error");
+                response.sendRedirect("/error");
             response.reset();
             response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(file.getFileName(), "UTF-8"));
             response.setHeader("Connection", "close");
             response.setHeader("Content-Type", "application/octet-stream");
 
             OutputStream os = response.getOutputStream();
-            java.io.File diskFile = new java.io.File(fileUploadProperteis.getUploadFolder()+"/"+file.getFilePath().split("/")[2]);
+            java.io.File diskFile = new java.io.File(fileUploadProperteis.getUploadFolder() + "/" + file.getFilePath().split("/")[2]);
             FileInputStream fis = new FileInputStream(diskFile);
             response.setHeader("Content-Length", String.valueOf(diskFile.length()));
-            byte[] buf = new byte[(int) diskFile.length()];
+            byte[] buf = new byte[(int)diskFile.length()];
             fis.read(buf);
             os.write(buf);
         } catch (IOException e) {

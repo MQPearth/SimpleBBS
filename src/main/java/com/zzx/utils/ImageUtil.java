@@ -87,7 +87,7 @@ public final class ImageUtil {
 
     public static void main(String[] args) throws IOException {
         Object[] objs = createImage();
-        BufferedImage image = (BufferedImage) objs[1];
+        BufferedImage image = (BufferedImage)objs[1];
         OutputStream os = new FileOutputStream("d:/1.png");
         ImageIO.write(image, "png", os);
         os.close();
