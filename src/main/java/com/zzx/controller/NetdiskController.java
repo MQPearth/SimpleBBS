@@ -126,16 +126,16 @@ public class NetdiskController {
     }
 
     @RequestMapping(value = "/download")
-    public void download(Integer fileId, HttpServletResponse response, HttpSession session) {
+    public void download(Integer fileId, HttpServletResponse response, HttpSession session) throws IOException {
 
         Object obj = session.getAttribute("user");
         if (null == obj)
-            return;
+        	response.sendRedirect("/");
         User user = (User) obj;
         try {
             File file = fileService.findFileById(fileId);
             if (file.getState() == 0 || file.getUser().getUid() != user.getUid())
-                return;
+            	response.sendRedirect("/error");
             response.reset();
             response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(file.getFileName(), "UTF-8"));
             response.setHeader("Connection", "close");
@@ -150,6 +150,7 @@ public class NetdiskController {
             os.write(buf);
         } catch (IOException e) {
             e.printStackTrace();
+            response.sendRedirect("/error");
         }
     }
 

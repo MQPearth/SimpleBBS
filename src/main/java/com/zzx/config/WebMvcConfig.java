@@ -29,13 +29,22 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 
 
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        File file =new File(fileUploadProperteis.getUploadFolder());
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		File file = new File(fileUploadProperteis.getUploadFolder());
+		if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
+			if (!file.exists())
+				file.mkdirs();
+			registry.addResourceHandler(fileUploadProperteis.getStaticAccessPath())
+					.addResourceLocations("file:" + fileUploadProperteis.getUploadFolder() + "/");
 
-        if(!file.exists())
-            file.mkdirs();
-        registry.addResourceHandler(fileUploadProperteis.getStaticAccessPath()).addResourceLocations("file:" + fileUploadProperteis.getUploadFolder() + "/");
-    }
+		} else {
+			file = new File("/file");
+			if (!file.exists())
+				file.mkdirs();
+			registry.addResourceHandler(fileUploadProperteis.getStaticAccessPath())
+					.addResourceLocations("file:/file");
+		}
+	}
 
 
     @Bean
