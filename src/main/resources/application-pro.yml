@@ -4,10 +4,10 @@ server:
 spring:
   datasource:
     druid:
-      url: jdbc:mysql://192.168.125.136:3306/bbs?useUnicode=true&characterEncoding=utf8&useSSL=false
-      username: root
-      password: admin
-      driver-class-name: com.mysql.jdbc.Driver
+      url: ${url}?useUnicode=true&characterEncoding=utf8&useSSL=false
+      username: ${username}
+      password: ${password}
+      driver-class-name: com.mysql.cj.jdbc.Driver
       initial-size: 5
       max-active: 20
       min-idle: 5
@@ -21,8 +21,8 @@ spring:
     prefix: classpath:/templates/
   servlet:
     multipart:
-      max-file-size: 1024Mb
-      max-request-size: 1024Mb
+      max-file-size: 1024MB
+      max-request-size: 1024MB
 
 
 mybatis:
